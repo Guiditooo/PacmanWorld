@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6196304832880700587}
   - component: {fileID: 6196304832880700580}
   - component: {fileID: 6196304832880700581}
+  - component: {fileID: 1308984523}
   m_Layer: 5
   m_Name: InputField
   m_TagString: Untagged
@@ -126,14 +127,14 @@ MonoBehaviour:
   m_VerticalScrollbarEventHandler: {fileID: 0}
   m_LayoutGroup: {fileID: 0}
   m_ScrollSensitivity: 1
-  m_ContentType: 0
+  m_ContentType: 2
   m_InputType: 0
   m_AsteriskChar: 42
-  m_KeyboardType: 0
+  m_KeyboardType: 4
   m_LineType: 0
   m_HideMobileInput: 0
   m_HideSoftKeyboard: 0
-  m_CharacterValidation: 0
+  m_CharacterValidation: 2
   m_RegexValue: 
   m_GlobalPointSize: 14
   m_CharacterLimit: 0
@@ -176,6 +177,21 @@ MonoBehaviour:
   m_isRichTextEditingAllowed: 0
   m_LineLimit: 0
   m_InputValidator: {fileID: 0}
+--- !u!114 &1308984523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6196304832880700583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00801876e3d9013428ccff83a2cec1b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCharCount: 2
+  minValueCount: 10
+  maxValueCount: 2
 --- !u!1 &6196304834205336055
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontSize
-      value: 144
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontColor.b
@@ -347,6 +363,14 @@ PrefabInstance:
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontSizeMax
       value: 144
+      objectReference: {fileID: 0}
+    - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 72
+      objectReference: {fileID: 0}
+    - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -475,11 +499,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_text
-      value: Insert Something
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontSize
-      value: 19.75
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontStyle
@@ -511,11 +535,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontSizeBase
-      value: 14
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_enableAutoSizing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 240762963056826366, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}
       propertyPath: m_fontColor32.rgba
