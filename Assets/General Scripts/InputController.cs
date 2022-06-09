@@ -7,18 +7,21 @@ using UnityEngine;
 public class InputController : MonoBehaviour
 {
     [SerializeField] private int maxCharCount = 2;
-    [SerializeField] private int minValueCount = 10;
-    [SerializeField] private int maxValueCount = 100;
+    [SerializeField] static private int minValueCount = 10;
+    [SerializeField] static private int maxValueCount = 100;
+
+    public static int GetMinValueCount() => minValueCount;
+    public static int GetMaxValueCount() => maxValueCount;
 
     private TMPro.TMP_InputField inputField;
 
-
+    public static Action OnValueChanged;
     private void Awake()
     {
         inputField = GetComponent<TMP_InputField>();
         inputField.onValidateInput += ValidateInput;
 
-        inputField.onValueChanged.AddListener(ClampValue);
+        //inputField.onValueChanged.AddListener(ClampValue);
 
     }
 
@@ -53,7 +56,20 @@ public class InputController : MonoBehaviour
         {
             if (int.TryParse(addedChar.ToString(), out next))
             {
-                return addedChar;
+                if(int.TryParse(text+addedChar.ToString(), out next))
+                {
+                    if(next <= maxValueCount)
+                    {
+                        OnValueChanged();
+                        return addedChar;
+                    }
+                    else
+                    {
+                        inputField.text = maxValueCount.ToString();
+                        OnValueChanged();
+                        return '\0';
+                    }
+                }
             }
         }
 
