@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using GeneralFunctions;
 
 public class InputController : MonoBehaviour
 {
@@ -19,27 +18,11 @@ public class InputController : MonoBehaviour
     private void Awake()
     {
         inputField = GetComponent<TMP_InputField>();
-        inputField.onValidateInput += ValidateInput;
+
+        //inputField.onValidateInput += ValidateInput;
 
         //inputField.onValueChanged.AddListener(ClampValue);
 
-    }
-
-    private void ClampValue(string value)
-    {
-        int aux = 0;
-
-        if(int.TryParse(value,out aux))
-        {
-            if (aux <= minValueCount)
-            {
-                inputField.text = minValueCount.ToString();
-            }
-            else if(aux >= maxValueCount)
-            {
-                inputField.text = maxValueCount.ToString();
-            }
-        }
     }
 
     private char ValidateInput(string text, int charIndex, char addedChar)
@@ -80,7 +63,7 @@ public class InputController : MonoBehaviour
 
     private void OnDestroy()
     {
-        inputField.onValidateInput -= ValidateInput;
-        inputField.onValueChanged.RemoveListener(ClampValue);
+        //inputField.onValidateInput -= ValidateInput;
+        //inputField.onValueChanged.RemoveListener(ClampValue);
     }
 }

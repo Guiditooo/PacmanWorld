@@ -18,7 +18,9 @@ public class CheckGridCreation : MonoBehaviour
     private void Awake()
     {
         btn = GetComponent<Button>();
-        InputController.OnValueChanged += CheckForEnableability;
+        
+        //InputController.OnValueChanged += CheckForEnableability;
+        //InputController.OnValueChanged += ValidateInputs;
     }
 
     private void Start()
@@ -28,7 +30,11 @@ public class CheckGridCreation : MonoBehaviour
 
     public void ValidateInputs()
     {
-        
+
+
+
+
+        /*
         if(rows.text != "" && columns.text != "" && rows.text != "\0" && columns.text != "\0")
         {
 
@@ -46,26 +52,27 @@ public class CheckGridCreation : MonoBehaviour
                 {
                     warningText.enabled = true;
                     btn.interactable = false;
-                    Debug.Log("Ta mal");
+                    Debug.Log("Grid Creation else 1");
                 }
             }
             else
             {
                 warningText.enabled = true;
                 btn.interactable = false;
-                Debug.Log("Ta mal");
+                Debug.Log("Grid Creation else 2");
             }
         }
         else
         {
             warningText.enabled = true;
             btn.interactable = false;
-            Debug.Log("Ta mal");
-        }
+            Debug.Log("Grid Creation else 3");
+        }*/
     }
 
     private void CheckForEnableability()
     {
+        /*
         if(rows.text != "" && columns.text != "" && rows.text != "\0" && columns.text != "\0")
         {
             int aux = 0;
@@ -74,8 +81,8 @@ public class CheckGridCreation : MonoBehaviour
             {
                 if (int.TryParse(columns.text, out aux) && aux >= InputController.GetMinValueCount() && aux <= InputController.GetMaxValueCount())
                 {
-                    btn.interactable = true;
                     warningText.enabled = false;
+                    btn.interactable = true;
                 }
                 else
                 {
@@ -89,11 +96,13 @@ public class CheckGridCreation : MonoBehaviour
                 btn.interactable = false;
             }
         }
+        */
     }
 
     private void OnDestroy()
     {
-        InputController.OnValueChanged -= ValidateInputs;
+        //InputController.OnValueChanged -= CheckForEnableability;
+        //InputController.OnValueChanged -= ValidateInputs;
     }
 
 }
