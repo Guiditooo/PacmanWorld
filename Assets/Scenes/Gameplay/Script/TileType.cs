@@ -1,4 +1,3 @@
-
 namespace CustomTiles
 {
     public enum TileType
