@@ -1,0 +1,97 @@
+Nota: Hardcodear to2.
+
+Mapa plano> Todos tiles de piso. 15x15.
+	Todos los tiles tienen que tener su lugar correcto. LISTO
+
+Personaje> Se mueva por tiles con WASD o flechas. 
+	Hasta hacer un cambio de direccion.
+
+Menu> Anterior al Gameplay (chorear)
+	.Jugar
+	.Creditos
+	.Salir
+
+UI> Pausa (Aprentando P o Esc)
+	.Reanudar
+	.Volver al menu
+
+Mapa con paredes> Que se muestren las paredes del mismo.
+	
+Personaje> Hacer chequeo de colisiones con paredes.
+	Ahora se detiene al chocar una pared.
+
+Comestibles> Puntos que el jugador agarrara del piso.
+	Cada tile de piso, tiene que tener su comida.
+	La comida desaparece cuando el jugador pasa.
+
+Personaje> Chequear trigger de comida.
+	Suma puntos al pasar encima de la comida.
+
+UI> Mostrar Puntos
+	Actualizar cada vez que se agarra una comidita.
+
+Manager> Generar condicion de victoria. (Para pasar de nivel)
+	Si agarras todas las comiditas ganas.
+
+Enemigo> Comportamiento random.
+	No atravesar paredes.
+	No pickear cosas.
+
+Enemigo> Agregar IA Random Total
+	Poder moveverse a cualqueir direccion
+	No importa de donde viene
+	No puede atravesar paredes
+
+Personaje> Chequear colision con enemigo
+	Perder una vida 
+
+UI> Mostar vida del personaje
+	Mostrar cantidad de vidas como imagenes
+	Actualizar cuando el personaje pierde vidas.
+
+Manager> Condicion de derrota
+	El personaje no tiene mas vidas.
+
+Power UP> Triggerea la posibilidad de matar enemigos
+	El personaje puede disparar usando la barra espaciadora.
+	Si la bala toca a un enemigo, lo mata y da puntos.
+	No tiene tiempo.
+	Tiene una cantidad de balas por cada power up recogido.
+
+Enemigo> Hacer morir
+	El enemigo desaparece de donde esta (Puede ser con animacion o no)
+	Da puntos.
+	Reaparece al cabo de <inserte cantidad> segundos.
+
+UI> Pasar de Nivel (En caso de ganar) (Apretar un boton para empazar el nivel)
+	Volver a poner a los enemigos en su lugar.
+	Volver a rellenar el mapa de comidita.
+	Volver a poner los Power Ups.
+	Volver a settear al personaje en su spawn.
+	Agregar puntos por completar el nivel dependiendo del tiempo que tardo.(Opcional)
+
+UI> Resetear el juego (En caso de perder)
+	.Ir al menu
+	.Reempezar el juego de 0.
+	.Mostrar Ranking (Opcional)
+
+Enemigo> Crear otros enemigos.
+	Chequear colision con otros enemigos -> para no overlapearlos
+
+Enemigo> Agregar IA Buscadora
+	Guardar el movimiento anterior ***
+	Chequear Distancia en X y en Y entre el player y el enemigo.
+	Tratar de tomar la direccion mas corta. 
+		Si puedo> Voy en esa direccion (De manera que la diferencia disminuya)
+		Si no puedo> Chequeo la otra direccion mas corta (De manera que la diferencia disminuya)
+			Si puedo> Voy en esa direccion. 
+			Si no puedo> Tengo que evaluar de que direccion vengo, e ir en la que no evalue todavia (Como el mapa no es cerrado, siempre va a haber una direccion a la que ir)
+	***Actualizar el movimiento realizado.
+
+Enemigo> Agregar IA Random Parcial
+	Puede moverse a cualquier direccion
+	No puede ir a la posicion anterior.
+
+UI> Ranking> Guardar el puntaje del player
+	(Al perder / Menu) Mostrar los puntajes guardado (a definir - seguramente 5)
+	(En el menu) Resetear los puntajes guardados
