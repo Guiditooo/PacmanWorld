@@ -10,7 +10,7 @@ namespace CustomTiles
         public static int DefaultSize { get; private set; } = 60;
         public Int2 Position {get; set;}
         public Int2 GridPosition {get; set;}
-        public static int Size { get; private set; }
+        public static int Size { get; private set; } = 10;
 
         private TileType type;
         

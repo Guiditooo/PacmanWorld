@@ -1,9 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using GeneralFunctions;
-using System;
-
-//TODO Hacer que mientras mas grande sea la grilla, mas atras vaya la camara
 
 namespace CustomTiles
 {
@@ -12,93 +10,52 @@ namespace CustomTiles
         [SerializeField] private GameObject floorPrefab;
         [SerializeField] private GameObject wallPrefab;
 
-        static public int DefaultRows { get; private set; } = 10;
-        static public int DefaultColumns { get; private set; } = 10;
+        private static float tileSize = 1;
+        public static float GetTileSize() => tileSize;
+        public static int Rows { get; private set; } = 15;
+        public static int Columns { get; private set; } = 15;
 
-        List<Tile> tileList = new List<Tile>();
-        static public int Rows { get; private set; }
-        static public int Columns { get; private set; }
+        private List<Tile> tileList = new List<Tile>();
 
-        private bool created = false;
-        private bool completed = false;
+        public static Vector2 InitialTilePos { get; private set; }
 
-        private Int2 mapPadding; //To start counting. Percent
-        private int mapSize;
-        private int tileSize;
-        public void Create(Int2 padding, int tileMapSize, int rowCount, int columnCount)
+        public static Int2 GetMapBounds()
         {
-            mapPadding = padding;
-            mapSize = tileMapSize;
+            return new Int2(Rows, Columns);
+        }
+
+        private void Awake()
+        {
+            SetTileSize();
+        }
+
+        public void Create(int rowCount, int columnCount)
+        {
+
             Rows = rowCount;
             Columns = columnCount;
-
-            tileSize = GetTileNeededSize();
-
-            int startingPosX = padding.X + tileSize / 2;
-            int startingPosY = padding.Y + tileSize / 2;
-
-            Int2 startingPos = new Int2(startingPosX, startingPosY);
 
             for (int y = 0; y < columnCount; y++)
             {
                 for (int x = 0; x < rowCount; x++)
                 {
-                    GameObject newGO = Instantiate(floorPrefab, new Vector3(startingPosX + tileSize*x, startingPosY + tileSize * y), Quaternion.identity, transform);
-                    newGO?.GetComponent<Floor>().SetSize(tileSize);
-                    newGO.name = "[ " + x + " - " + y +" ]";
+                    Vector3 pos = new Vector3(tileSize / 2 + tileSize * x, tileSize / 2 + tileSize * y);
+                    GameObject newGO = Instantiate(floorPrefab, pos, Quaternion.identity, transform);
+                    newGO.name = "[ " + x + " - " + y + " ]";
+                    newGO.GetComponent<Floor>().Position = new Int2(x, y);
                     tileList.Add(newGO?.GetComponent<Floor>());
+                    if (x == 0 && y == 0)
+                    {
+                        InitialTilePos = new Vector2(pos.x, pos.y);
+                    }
                 }
             }
-            created = true;
         }
 
-        private int GetTileNeededSize()
+        private void SetTileSize()
         {
-            int size = Tile.DefaultSize;
-
-            if(Rows > DefaultRows || Columns > DefaultColumns)
-            {
-                if (Rows > Columns)
-                {
-                    size = mapSize / Rows;
-                }
-                else
-                {
-                    size = mapSize / Columns;
-                }
-            }
-
-            return size;
-        }
-        
-
-        public static void CreateMap()
-        {
-
+            tileSize =  floorPrefab.GetComponent<SpriteRenderer>().size.x;
         }
 
-        public void SetRows(int newRows)
-        {
-
-        }
-        public void SetColumns(int newColumns)
-        {
-
-        }
-        public void SetSize(int newSize)
-        {
-            foreach (Tile tile in tileList)
-            {
-                
-            }
-        }
-        /*
-        private TileMap defaultMap()
-        {
-            TileMap tm;
-
-            return TileMap();
-        }
-        */
     }
 }
