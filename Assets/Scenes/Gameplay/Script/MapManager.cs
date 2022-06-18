@@ -9,31 +9,42 @@ using CustomTiles;
 [CustomEditor(typeof(MapManager))]
 public class MapManager : MonoBehaviour //Se supone que funca una vez que se selecciono el nivel.
 {
-    [SerializeField] [Range(65, 70)] private int gridSizePercentX = 65;
-    [Space(15)]
-    [SerializeField] [Range(5, 25)] private int gridPaddingPercentX = 5;
-    [SerializeField] [Range(5, 25)] private int gridPaddingPercentY = 5;
-    [Space(15)]
     [SerializeField] private CustomTiles.TileMap tileMap;
     [Space(15)]
+    [SerializeField] private GameObject playerPrefab;
 
-
-    private Int2 gridSizePercent;
-    private Int2 gridPaddingPercent;
-
+    private Player player;
+    private Movement playerMovement;
     private Transform tileMapPos;
     private void Awake()
     {
+        playerMovement = playerPrefab.GetComponent<Movement>();
         tileMapPos = tileMap.transform;
-        gridSizePercent = new Int2(gridSizePercentX, gridSizePercentX);
-        gridPaddingPercent = new Int2(gridPaddingPercentX, gridPaddingPercentY);        
+        Player.OnPlayerPosChange += MovePlayer;
     }
 
     private void Start()
     {
-        tileMap.Create(new Int2(gridPaddingPercentX, gridPaddingPercentY), 600, 15, 15);
+        tileMap.Create(15, 15);
+        GameObject newGO = Instantiate(playerPrefab, TileMap.InitialTilePos, Quaternion.identity);
+        newGO.name = "Player";
+        player = newGO.GetComponent<Player>();
+        playerMovement.SetBounds(TileMap.GetMapBounds());
     }
 
+    private void Update()
+    {
+        
+    }
 
+    private void MovePlayer()
+    {
+        player.transform.position = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.Y);
+    }
+
+    private void OnDestroy()
+    {
+        Player.OnPlayerPosChange -= MovePlayer;
+    }
 
 }
