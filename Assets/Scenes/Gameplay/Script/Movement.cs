@@ -32,7 +32,7 @@ public class Movement : MonoBehaviour
     
     private void LateUpdate()
     {
-        //if (!IsMoving)
+        if (!IsMoving)
             movement?.Invoke();
     }
     private void Update()
@@ -42,6 +42,14 @@ public class Movement : MonoBehaviour
             movement -= lastMovement;
             movement += nextMovement;
             lastMovement = movement;
+        }
+        else
+        {
+            if(nextMovement != movement)
+            {
+                movement = nextMovement;
+                lastMovement = movement;
+            }
         }
 
         if (Input.GetKey(KeyCode.D))

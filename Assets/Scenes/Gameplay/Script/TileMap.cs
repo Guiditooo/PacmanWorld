@@ -27,6 +27,7 @@ namespace CustomTiles
         private void Awake()
         {
             SetTileSize();
+
         }
 
         public void Create(int rowCount, int columnCount)
@@ -40,16 +41,28 @@ namespace CustomTiles
                 for (int x = 0; x < rowCount; x++)
                 {
                     Vector3 pos = new Vector3(tileSize / 2 + tileSize * x, tileSize / 2 + tileSize * y);
-                    GameObject newGO = Instantiate(floorPrefab, pos, Quaternion.identity, transform);
-                    newGO.name = "[ " + x + " - " + y + " ]";
-                    newGO.GetComponent<Floor>().Position = new Int2(x, y);
-                    tileList.Add(newGO?.GetComponent<Floor>());
+                    GameObject newGO;
+                    if (x == 0 || x == rowCount - 1 || y == 0 || y == columnCount-1)
+                    {
+                        newGO = Instantiate(wallPrefab, pos, Quaternion.identity, transform);
+                        newGO.name = "[ " + x + " - " + y + " ] - " + wallPrefab.name;
+                        newGO.GetComponent<Wall>().Position = new Int2(x, y);
+                        tileList.Add(newGO?.GetComponent<Wall>());
+                    }
+                    else
+                    {
+                        newGO = Instantiate(floorPrefab, pos, Quaternion.identity, transform);
+                        newGO.name = "[ " + x + " - " + y + " ] - " + floorPrefab.name;
+                        newGO.GetComponent<Floor>().Position = new Int2(x, y);
+                        tileList.Add(newGO?.GetComponent<Floor>());
+                    }
                     if (x == 0 && y == 0)
                     {
                         InitialTilePos = new Vector2(pos.x, pos.y);
                     }
                 }
             }
+
         }
 
         private void SetTileSize()

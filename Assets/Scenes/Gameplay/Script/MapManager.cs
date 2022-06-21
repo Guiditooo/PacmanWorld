@@ -13,7 +13,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [Space(15)]
     [SerializeField] private GameObject playerPrefab;
     [Space(5)]
-    [SerializeField] [Range(0.1f,1)]private float playerSpeed;
+    [SerializeField] [Range(0.1f,4)]private float playerSpeed;
 
     private Player player;
     private Movement playerMovement;
@@ -53,11 +53,11 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         {
             t += Time.deltaTime * playerSpeed;
             if (t > 1) t = 1;
-            auxPosition = Vector3.Lerp(actualPos, targetPos, t);
+            player.transform.position = Vector3.Lerp(actualPos, targetPos, t);
             yield return null;
         }
         Movement.IsMoving = false;
-        player.transform.position = auxPosition;
+        //player.transform.position = auxPosition;
     }
 
     private void OnDestroy()
