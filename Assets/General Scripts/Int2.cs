@@ -14,7 +14,17 @@ namespace GeneralFunctions
             X = x;
             Y = y;
         }
-
+        public Int2(Vector2 other)
+        {
+            
+            X = Mathf.RoundToInt(other.x);
+            Y = Mathf.RoundToInt(other.y);
+        }
+        public Int2(Vector3 other)
+        {
+            X = Mathf.RoundToInt(other.x);
+            Y = Mathf.RoundToInt(other.y);
+        }
         public static Int2 zero
         {
             get
@@ -55,5 +65,20 @@ namespace GeneralFunctions
         {
             return X.ToString() + "-" + Y.ToString();
         }
+
+        public static Int2 ToInt2(Vector2 other)
+        {
+            return new Int2((int)other.x, (int)other.y);
+        }
+
+        public Vector2 ToVector2()
+        {
+            return new Vector2(X, Y);
+        }
+        public Vector3 ToVector3()
+        {
+            return new Vector2(X, Y);
+        }
+
     }
 }

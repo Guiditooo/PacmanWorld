@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialPos:
-    X: 0
-    Y: 0
+    X: 1
+    Y: 1
 --- !u!114 &-9063627393029972414
 MonoBehaviour:
   m_ObjectHideFlags: 0

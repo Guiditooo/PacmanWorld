@@ -28,9 +28,10 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     private void Start()
     {
         tileMap.Create(15, 15);
-        GameObject newGO = Instantiate(playerPrefab, TileMap.InitialTilePos, Quaternion.identity);
+        GameObject newGO = Instantiate(playerPrefab, TileMap.InitialTilePos.ToVector3(), Quaternion.identity);
         newGO.name = "Player";
         player = newGO.GetComponent<Player>();
+        player.SetInitialPos(TileMap.InitialTilePos);
         playerMovement.SetBounds(TileMap.GetMapBounds());
     }
 

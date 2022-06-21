@@ -6,7 +6,11 @@ using CustomTiles;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Int2 InitialPos = Int2.zero;
+    [SerializeField] private Int2 InitialPos = Int2.one;
+    public void SetInitialPos(Int2 newInitialPos)
+    {
+        InitialPos = newInitialPos;
+    }
 
     public static Action OnPlayerPosChange;
 
@@ -30,12 +34,13 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
+        position = InitialPos;
     }
 
     private void Start()
     {
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
-        //position = InitialPos;
+        InitialPos = TileMap.InitialTilePos;
     }
 
 
