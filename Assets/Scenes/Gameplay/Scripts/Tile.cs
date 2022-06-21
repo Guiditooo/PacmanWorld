@@ -12,7 +12,7 @@ namespace CustomTiles
         public Int2 GridPosition {get; set;}
         public static int Size { get; private set; } = 10;
 
-        private TileType type;
+        [SerializeField] private TileType type;
         public TileType GetTileType() => type;
         
         private SpriteRenderer spriteRenderer;

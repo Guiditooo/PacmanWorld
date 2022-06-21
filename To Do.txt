@@ -4,7 +4,7 @@ Mapa plano> Todos tiles de piso. 15x15.
 	Todos los tiles tienen que tener su lugar correcto. LISTO
 
 Personaje> Se mueva por tiles con WASD o flechas. 
-	Hasta hacer un cambio de direccion.
+	Hasta hacer un cambio de direccion. LISTO
 
 Menu> Anterior al Gameplay (chorear)
 	.Jugar
