@@ -12,6 +12,8 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private CustomTiles.TileMap tileMap;
     [Space(15)]
     [SerializeField] private GameObject playerPrefab;
+    [Space(5)]
+    [SerializeField] [Range(0.1f,1)]private float playerSpeed;
 
     private Player player;
     private Movement playerMovement;
@@ -39,12 +41,29 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
 
     private void MovePlayer()
     {
-        player.transform.position = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.Y);
+        Vector3 targetPos = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.Y);
+        StartCoroutine(MovementLerper(player.transform.position, targetPos));
+    }
+    private IEnumerator MovementLerper(Vector3 actualPos, Vector3 targetPos)
+    {
+        float t = 0;
+        Movement.IsMoving = true;
+        Vector3 auxPosition = Vector3.zero;
+        while (t < 1)
+        {
+            t += Time.deltaTime * playerSpeed;
+            if (t > 1) t = 1;
+            auxPosition = Vector3.Lerp(actualPos, targetPos, t);
+            yield return null;
+        }
+        Movement.IsMoving = false;
+        player.transform.position = auxPosition;
     }
 
     private void OnDestroy()
     {
         Player.OnPlayerPosChange -= MovePlayer;
     }
+
 
 }

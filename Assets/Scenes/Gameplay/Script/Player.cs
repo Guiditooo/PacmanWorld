@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
-        position = InitialPos;
+        //position = InitialPos;
     }
 
 

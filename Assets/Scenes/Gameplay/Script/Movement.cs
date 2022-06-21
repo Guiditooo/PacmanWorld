@@ -7,61 +7,66 @@ using GeneralFunctions;
 [RequireComponent(typeof(Player))]
 public class Movement : MonoBehaviour
 {
-    private Int2 bounds = Int2.zero;
+    private Int2 bounds = new Int2(0,0);
 
     private delegate void Move();
     private Move movement;
+    private Move nextMovement;
     private Move lastMovement;
 
     private Player player;
+
+    public static bool IsMoving { set; get; }
+
     private void Awake()
     {
         player = GetComponent<Player>();
         movement = MoveRight;
         lastMovement = movement;
+        IsMoving = false;
     }
     public void SetBounds(Int2 newBounds) 
     { 
-        bounds = newBounds; 
+        bounds = new Int2(newBounds.X,newBounds.Y); 
     }
     
     private void LateUpdate()
     {
-        movement();
+        //if (!IsMoving)
+            movement?.Invoke();
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
+        if (!IsMoving)
+        {
+            movement -= lastMovement;
+            movement += nextMovement;
+            lastMovement = movement;
+        }
+
+        if (Input.GetKey(KeyCode.D))
         {
             Debug.Log("Me quiero mover a la derecha");
-            movement -= lastMovement;
-            movement += MoveRight;
-            lastMovement = MoveRight;
+            nextMovement = MoveRight;
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A))
         {
-            movement -= lastMovement;
-            movement += MoveLeft;
-            lastMovement = MoveLeft;
+            nextMovement = MoveLeft;
         }
-        else if (Input.GetKeyDown(KeyCode.W))
+        else if (Input.GetKey(KeyCode.W))
         {
-            movement -= lastMovement;
-            movement += MoveUp;
-            lastMovement = MoveUp;
+            nextMovement = MoveUp;
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
-            movement -= lastMovement;
-            movement += MoveDown;
-            lastMovement = MoveDown;
+            nextMovement = MoveDown;
         }
     }
 
     public void MoveRight()
     {
         Debug.Log("Me voy a mover a la derecha");
-        if (player.Position.X + 1 < bounds.X)
+        if (player.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X)
         {
             player.Position = new Int2(player.Position.X + 1, player.Position.Y);
         }
@@ -78,7 +83,7 @@ public class Movement : MonoBehaviour
     public void MoveUp()
     {
         Debug.Log("Me voy a mover para arriba");
-        if (player.Position.Y + 1 < bounds.Y)
+        if (player.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y)
         {
             player.Position = new Int2(player.Position.X, player.Position.Y + 1);
         }
@@ -91,4 +96,5 @@ public class Movement : MonoBehaviour
             player.Position = new Int2(player.Position.X, player.Position.Y - 1);
         }
     }
+
 }
