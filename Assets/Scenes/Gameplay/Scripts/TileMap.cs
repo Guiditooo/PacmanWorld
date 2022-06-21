@@ -15,7 +15,7 @@ namespace CustomTiles
         public static int Rows { get; private set; } = 15;
         public static int Columns { get; private set; } = 15;
 
-        private List<Tile> tileList = new List<Tile>();
+        private static List<Tile> tileList = new List<Tile>();
 
         public static Vector2 InitialTilePos { get; private set; }
 
@@ -56,7 +56,7 @@ namespace CustomTiles
                         newGO.GetComponent<Floor>().Position = new Int2(x, y);
                         tileList.Add(newGO?.GetComponent<Floor>());
                     }
-                    if (x == 0 && y == 0)
+                    if (x == 1 && y == 1)
                     {
                         InitialTilePos = new Vector2(pos.x, pos.y);
                     }
@@ -68,6 +68,19 @@ namespace CustomTiles
         private void SetTileSize()
         {
             tileSize =  floorPrefab.GetComponent<SpriteRenderer>().size.x;
+        }
+
+        public static bool CheckForValidTile(Int2 posToCheck)
+        {
+            foreach (Tile tile in tileList)
+            {
+                if(posToCheck == tile.Position)
+                {
+                    return tile.GetTileType() == TileType.Floor;
+                }
+
+            }
+            return false;
         }
 
     }

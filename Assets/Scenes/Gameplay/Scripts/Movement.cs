@@ -54,7 +54,6 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("Me quiero mover a la derecha");
             nextMovement = MoveRight;
         }
         else if (Input.GetKey(KeyCode.A))
@@ -73,15 +72,18 @@ public class Movement : MonoBehaviour
 
     public void MoveRight()
     {
-        Debug.Log("Me voy a mover a la derecha");
-        if (player.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X)
+        Int2 newPlayerPos = player.Position;
+        newPlayerPos.X++;
+        if (player.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
         {
             player.Position = new Int2(player.Position.X + 1, player.Position.Y);
         }
     }
     public void MoveLeft()
     {
-        if (player.Position.X - 1 >= 0)
+        Int2 newPlayerPos = player.Position;
+        newPlayerPos.X--;
+        if (player.Position.X - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
         {
             Debug.Log("Me voy a mover a la izquierda");
             player.Position = new Int2(player.Position.X - 1, player.Position.Y);
@@ -90,16 +92,18 @@ public class Movement : MonoBehaviour
     }
     public void MoveUp()
     {
-        Debug.Log("Me voy a mover para arriba");
-        if (player.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y)
+        Int2 newPlayerPos = player.Position;
+        newPlayerPos.Y++;
+        if (player.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
         {
             player.Position = new Int2(player.Position.X, player.Position.Y + 1);
         }
     }
     public void MoveDown()
     {
-        Debug.Log("Me voy a mover para abajo");
-        if (player.Position.Y - 1 >= 0)
+        Int2 newPlayerPos = player.Position;
+        newPlayerPos.Y--;
+        if (player.Position.Y - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
         {
             player.Position = new Int2(player.Position.X, player.Position.Y - 1);
         }

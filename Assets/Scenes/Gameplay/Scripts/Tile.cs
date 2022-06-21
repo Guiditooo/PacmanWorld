@@ -13,6 +13,7 @@ namespace CustomTiles
         public static int Size { get; private set; } = 10;
 
         private TileType type;
+        public TileType GetTileType() => type;
         
         private SpriteRenderer spriteRenderer;
 
