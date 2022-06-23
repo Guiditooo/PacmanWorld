@@ -4,7 +4,7 @@ using UnityEngine;
 namespace GeneralFunctions
 {
     [Serializable]
-    public struct Int2  /*System.Object*/
+    public struct Int2
     {
 
         public int X;
@@ -80,5 +80,14 @@ namespace GeneralFunctions
             return new Vector2(X, Y);
         }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(X, Y);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
     }
 }
