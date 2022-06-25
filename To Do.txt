@@ -20,6 +20,8 @@ Mapa con paredes> Que se muestren las paredes del mismo. LISTO
 Personaje> Hacer chequeo de colisiones con paredes.
 	Ahora se detiene al chocar una pared. LISTO
 
+Movimiento> Separar input de otros scripts. LISTO
+
 Comestibles> Puntos que el jugador agarrara del piso.
 	Cada tile de piso, tiene que tener su comida.
 	La comida desaparece cuando el jugador pasa.
