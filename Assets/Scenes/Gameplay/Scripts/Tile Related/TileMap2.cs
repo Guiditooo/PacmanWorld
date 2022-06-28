@@ -20,9 +20,6 @@ namespace CustomTiles
         static public int Rows { get; private set; }
         static public int Columns { get; private set; }
 
-        private bool created = false;
-        private bool completed = false;
-
         private Int2 mapPadding; //To start counting. Percent
         private int mapSize;
         private int tileSize;
@@ -60,7 +57,6 @@ namespace CustomTiles
                     tileList.Add(newGO?.GetComponent<Floor>());
                 }
             }
-            created = true;
         }
 
         private int GetTileNeededSize()

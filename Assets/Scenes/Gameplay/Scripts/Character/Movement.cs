@@ -14,15 +14,18 @@ public class Movement : MonoBehaviour
 
     private Character character;
 
-    public static bool IsMoving { set; get; }
+    public bool IsMoving { set; get; }
 
     private void Awake()
     {
+        character = gameObject.GetComponent<Character>();
         movement = MoveRight;
         lastMovement = movement;
         IsMoving = false;
-        if(character.tag == "Player")
+        if (character.tag == "Player")
+        {
             InputManager.PressingMovement += SetNextMovement;
+        }
     }
     private void LateUpdate()
     {
@@ -70,11 +73,12 @@ public class Movement : MonoBehaviour
     }
     public void MoveRight()
     {
-        Int2 newPlayerPos = character.Position;
-        newPlayerPos.X++;
-        if (character.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
+        Int2 newcharacterPos = character.Position;
+        newcharacterPos.X++;
+        if (character.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            character.Position = new Int2(character.Position.X + 1, character.Position.Y);
+            Debug.Log("Me voy a mover a la derecha");
+            character.Position = newcharacterPos;
         }
     }
     public void MoveLeft()
@@ -84,7 +88,7 @@ public class Movement : MonoBehaviour
         if (character.Position.X - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
             Debug.Log("Me voy a mover a la izquierda");
-            character.Position = new Int2(character.Position.X - 1, character.Position.Y);
+            character.Position = newcharacterPos;
         }
 
     }
@@ -94,7 +98,8 @@ public class Movement : MonoBehaviour
         newcharacterPos.Y++;
         if (character.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            character.Position = new Int2(character.Position.X, character.Position.Y + 1);
+            Debug.Log("Me voy a mover para arriba");
+            character.Position = newcharacterPos;
         }
     }
     public void MoveDown()
@@ -103,7 +108,8 @@ public class Movement : MonoBehaviour
         newcharacterPos.Y--;
         if (character.Position.Y - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            character.Position = new Int2(character.Position.X, character.Position.Y - 1);
+            Debug.Log("Me voy a mover para abajo");
+            character.Position = newcharacterPos;
         }
     }
     private void OnDestroy()

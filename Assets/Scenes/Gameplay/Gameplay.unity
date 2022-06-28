@@ -497,8 +497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1532909250}
-  playerPrefab: {fileID: 2031801655211271033, guid: d8dc3e221a3e2b34e84fe945ccb4495b, type: 3}
   playerSpeed: 3
+  characterGroup:
+  - {fileID: 4078379899010176620, guid: d8dc3e221a3e2b34e84fe945ccb4495b, type: 3}
 --- !u!1 &583123435
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,16 +9,16 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private CustomTiles.TileMap tileMap;
     [SerializeField] [Range(0.1f,4)]private float playerSpeed;
 
-    [SerializeField] private List<Character> characterGroup = new List<Character>();
-    private List<Movement> characterMovement = new List<Movement>();
+    [SerializeField] private Character[] characterGroup;
+    private Movement[] characterMovement;
     private Transform tileMapPos;
     private void Awake()
     {
         tileMapPos = tileMap.transform;
-        foreach (Character character in characterGroup)
+        for (int i = 0; i < characterGroup.Length; i++)
         {
-            characterMovement.Add(character.gameObject.GetComponent<Movement>());
-            character.OnCharacterPosChange += MoveCharacter;
+            characterMovement[i] = characterGroup[i].gameObject.GetComponent<Movement>();
+            characterGroup[i].OnCharacterPosChange += MoveCharacter;
         }
     }
 
@@ -27,7 +27,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         tileMap.Create(15, 15);
         foreach (Character character in characterGroup)
         {
-            GameObject newGO = character.gameObject;
+            GameObject newGO = null;
             if (character.tag == "Player")
             {
                 newGO = Instantiate(character.Prefab, TileMap.InitialCharacterPos.ToVector3(), Quaternion.identity);
@@ -40,10 +40,12 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             }
             else
             {
-                
                 Debug.Log("Characters Creation Error");
             }
-            newGO.name = character.name;
+            if (newGO != null)
+            {
+                newGO.name = character.name;
+            }
         }
         
     }
@@ -56,8 +58,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     private IEnumerator MovementLerper(Vector3 actualPos, Vector3 targetPos, Character charToMove)
     {
         float t = 0;
-        Movement.IsMoving = true;
-        Vector3 auxPosition = Vector3.zero;
+        charToMove.GetComponent<Movement>().IsMoving = true;
         while (t < 1)
         {
             t += Time.deltaTime * playerSpeed;
@@ -65,7 +66,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             charToMove.transform.position = Vector3.Lerp(actualPos, targetPos, t);
             yield return null;
         }
-        Movement.IsMoving = false;
+        charToMove.GetComponent<Movement>().IsMoving = false;
         //player.transform.position = auxPosition;
     }
 
