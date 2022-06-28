@@ -4,16 +4,28 @@ using GeneralFunctions;
 
 using CustomTiles;
 
-public class Player : MonoBehaviour
+public class Character : MonoBehaviour
 {
     [SerializeField] private Int2 InitialPos = Int2.one;
+    [SerializeField] private GameObject prefab;
+    public GameObject Prefab 
+    {
+        get
+        {
+            return prefab;
+        }
+        private set
+        {
+            prefab = value;
+        }
+    }
+    public CharacterType CharType { get; private set; }
     public void SetInitialPos(Int2 newInitialPos)
     {
         InitialPos = newInitialPos;
     }
 
-    public static Action OnPlayerPosChange;
-
+    public Action<Character> OnCharacterPosChange;
 
     private Int2 position;
     public Int2 Position
@@ -25,12 +37,11 @@ public class Player : MonoBehaviour
         set
         {
             position = value;
-            OnPlayerPosChange?.Invoke();
+            OnCharacterPosChange?.Invoke(this);
         }
     }
 
     private SpriteRenderer sprite;
-
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -40,7 +51,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
-        InitialPos = TileMap.InitialTilePos;
+        InitialPos = TileMap.InitialCharacterPos;
     }
 
 

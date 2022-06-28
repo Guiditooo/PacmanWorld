@@ -16,8 +16,8 @@ namespace CustomTiles
         public static int Columns { get; private set; } = 15;
 
         private static List<Tile> tileList = new List<Tile>();
-        public static Int2 InitialTilePos { get; set; } = Int2.one;
-        public static Int2 InitialStalkersPos { get; set; } = GetMapBounds()-2;
+        public static Int2 InitialCharacterPos { get; set; } = Int2.one;
+        public static Int2 InitialStalkerPos { get; set; } = GetMapBounds()-2;
         public static Int2 GetMapBounds()
         {
             return new Int2(Rows, Columns);
@@ -57,7 +57,7 @@ namespace CustomTiles
                     }
                     if (x == 1 && y == 1)
                     {
-                        InitialTilePos = new Int2(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+                        InitialCharacterPos = new Int2(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
                     }
                 }
             }

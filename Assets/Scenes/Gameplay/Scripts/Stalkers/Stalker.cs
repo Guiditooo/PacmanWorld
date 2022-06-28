@@ -42,7 +42,7 @@ public class Stalker : MonoBehaviour
     private void Start()
     {
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
-        InitialPos = TileMap.InitialTilePos;
+        InitialPos = TileMap.InitialCharacterPos;
     }
 
 }

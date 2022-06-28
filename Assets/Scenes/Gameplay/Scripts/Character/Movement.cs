@@ -4,35 +4,26 @@ using UnityEngine;
 
 using GeneralFunctions;
 
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(Character))]
 public class Movement : MonoBehaviour
 {
-    private Int2 bounds = new Int2(0,0);
-
     private delegate void Move();
     private Move movement;
     private Move nextMovement;
     private Move lastMovement;
 
-    private Player player;
+    private Character character;
 
     public static bool IsMoving { set; get; }
 
     private void Awake()
     {
-        player = GetComponent<Player>();
         movement = MoveRight;
         lastMovement = movement;
         IsMoving = false;
-
-        InputManager.PressingMovement += SetNextMovement;
-
+        if(character.tag == "Player")
+            InputManager.PressingMovement += SetNextMovement;
     }
-    public void SetBounds(Int2 newBounds) 
-    { 
-        bounds = new Int2(newBounds.X,newBounds.Y); 
-    }
-    
     private void LateUpdate()
     {
         if (!IsMoving)
@@ -79,45 +70,46 @@ public class Movement : MonoBehaviour
     }
     public void MoveRight()
     {
-        Int2 newPlayerPos = player.Position;
+        Int2 newPlayerPos = character.Position;
         newPlayerPos.X++;
-        if (player.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
+        if (character.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
         {
-            player.Position = new Int2(player.Position.X + 1, player.Position.Y);
+            character.Position = new Int2(character.Position.X + 1, character.Position.Y);
         }
     }
     public void MoveLeft()
     {
-        Int2 newPlayerPos = player.Position;
-        newPlayerPos.X--;
-        if (player.Position.X - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
+        Int2 newcharacterPos = character.Position;
+        newcharacterPos.X--;
+        if (character.Position.X - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
             Debug.Log("Me voy a mover a la izquierda");
-            player.Position = new Int2(player.Position.X - 1, player.Position.Y);
+            character.Position = new Int2(character.Position.X - 1, character.Position.Y);
         }
 
     }
     public void MoveUp()
     {
-        Int2 newPlayerPos = player.Position;
-        newPlayerPos.Y++;
-        if (player.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
+        Int2 newcharacterPos = character.Position;
+        newcharacterPos.Y++;
+        if (character.Position.Y + 1 < CustomTiles.TileMap.GetMapBounds().Y && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            player.Position = new Int2(player.Position.X, player.Position.Y + 1);
+            character.Position = new Int2(character.Position.X, character.Position.Y + 1);
         }
     }
     public void MoveDown()
     {
-        Int2 newPlayerPos = player.Position;
-        newPlayerPos.Y--;
-        if (player.Position.Y - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newPlayerPos))
+        Int2 newcharacterPos = character.Position;
+        newcharacterPos.Y--;
+        if (character.Position.Y - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            player.Position = new Int2(player.Position.X, player.Position.Y - 1);
+            character.Position = new Int2(character.Position.X, character.Position.Y - 1);
         }
     }
     private void OnDestroy()
     {
-        InputManager.PressingMovement -= SetNextMovement;
+        if (character.tag == "Player")
+            InputManager.PressingMovement -= SetNextMovement;
     }
 
 }
