@@ -1,12 +1,14 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-using GeneralFunctions;
+using System;
 
+using GeneralFunctions;
 using CustomTiles;
 
-public class Player : MonoBehaviour
+public class Stalker : MonoBehaviour
 {
-    [SerializeField] private Int2 InitialPos = Int2.one;
+    private Int2 InitialPos;
     public void SetInitialPos(Int2 newInitialPos)
     {
         InitialPos = newInitialPos;
@@ -25,7 +27,7 @@ public class Player : MonoBehaviour
         set
         {
             position = value;
-            OnPlayerPosChange?.Invoke();
+            OnPlayerPosChange();
         }
     }
 
@@ -42,6 +44,5 @@ public class Player : MonoBehaviour
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
         InitialPos = TileMap.InitialTilePos;
     }
-
 
 }

@@ -17,6 +17,7 @@ namespace CustomTiles
 
         private static List<Tile> tileList = new List<Tile>();
         public static Int2 InitialTilePos { get; set; } = Int2.one;
+        public static Int2 InitialStalkersPos { get; set; } = GetMapBounds()-2;
         public static Int2 GetMapBounds()
         {
             return new Int2(Rows, Columns);
