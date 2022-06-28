@@ -5,14 +5,11 @@ using UnityEngine;
 
 namespace PacManWorld
 {
-
     public enum FadeType
     {
         Instantaneously,
         Delayed
     }
-
-
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private CanvasGroup pause;

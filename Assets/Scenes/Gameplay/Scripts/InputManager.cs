@@ -6,7 +6,7 @@ using System;
 
 public class InputManager : MonoBehaviour
 {
-    public static Action<MovementType> PressingMovement; 
+    public static Action<MovementDirection> PressingMovement; 
     public static Action PressingPause;
 
     //Tengo que suscribir esto al evento de pausar, o simplemente lo pauso con el input?
@@ -15,13 +15,13 @@ public class InputManager : MonoBehaviour
     {
         if (!PauseSystem.Paused)
         {
-            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) PressingMovement?.Invoke(MovementType.Down);
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) PressingMovement?.Invoke(MovementDirection.Down);
 
-            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) PressingMovement?.Invoke(MovementType.Left);
+            else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) PressingMovement?.Invoke(MovementDirection.Left);
 
-            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) PressingMovement?.Invoke(MovementType.Right);
+            else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) PressingMovement?.Invoke(MovementDirection.Right);
 
-            else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) PressingMovement?.Invoke(MovementType.Up);
+            else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) PressingMovement?.Invoke(MovementDirection.Up);
         }
 
         if (Input.GetKeyDown(KeyCode.P))

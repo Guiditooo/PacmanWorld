@@ -58,20 +58,20 @@ public class Movement : MonoBehaviour
         
     }
 
-    private void SetNextMovement(MovementType movement)
+    private void SetNextMovement(MovementDirection movement)
     {
         switch (movement)
         {
-            case MovementType.Down:
+            case MovementDirection.Down:
                 nextMovement = MoveDown;
                 break;
-            case MovementType.Up:
+            case MovementDirection.Up:
                 nextMovement = MoveUp;
                 break;
-            case MovementType.Left:
+            case MovementDirection.Left:
                 nextMovement = MoveLeft;
                 break;
-            case MovementType.Right:
+            case MovementDirection.Right:
             default:
                 nextMovement = MoveRight;
                 break;

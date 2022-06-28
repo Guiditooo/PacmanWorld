@@ -17,7 +17,7 @@ public class PauseSystem : MonoBehaviour
     {
         InputManager.PressingPause += PauseControl;
     }
-    private void PauseControl()
+    public static void PauseControl()
     {
         Paused = !Paused;
         Time.timeScale = Paused ? 0 : 1;
