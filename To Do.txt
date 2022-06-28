@@ -6,19 +6,21 @@ Mapa plano> Todos tiles de piso. 15x15.
 Personaje> Se mueva por tiles con WASD o flechas. 
 	Hasta hacer un cambio de direccion. LISTO
 
-Menu> Anterior al Gameplay (chorear)
+Menu> Anterior al Gameplay (chorear) LISTO
 	.Jugar
 	.Creditos
 	.Salir
 
-UI> Pausa (Aprentando P o Esc)
+UI> Pausa (Aprentando P o Esc) 
 	.Reanudar
 	.Volver al menu
 
-Mapa con paredes> Que se muestren las paredes del mismo.
+Mapa con paredes> Que se muestren las paredes del mismo. LISTO
 	
 Personaje> Hacer chequeo de colisiones con paredes.
-	Ahora se detiene al chocar una pared.
+	Ahora se detiene al chocar una pared. LISTO
+
+Movimiento> Separar input de otros scripts. LISTO
 
 Comestibles> Puntos que el jugador agarrara del piso.
 	Cada tile de piso, tiene que tener su comida.

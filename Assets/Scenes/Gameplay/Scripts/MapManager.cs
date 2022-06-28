@@ -1,18 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 using GeneralFunctions;
 using CustomTiles;
-
-[CustomEditor(typeof(MapManager))]
 public class MapManager : MonoBehaviour //Se supone que funca una vez que se selecciono el nivel.
 {
     [SerializeField] private CustomTiles.TileMap tileMap;
-    [Space(15)]
     [SerializeField] private GameObject playerPrefab;
-    [Space(5)]
     [SerializeField] [Range(0.1f,4)]private float playerSpeed;
 
     private Player player;

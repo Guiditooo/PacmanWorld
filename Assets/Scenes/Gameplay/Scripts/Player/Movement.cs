@@ -24,6 +24,9 @@ public class Movement : MonoBehaviour
         movement = MoveRight;
         lastMovement = movement;
         IsMoving = false;
+
+        InputManager.PressingMovement += SetNextMovement;
+
     }
     public void SetBounds(Int2 newBounds) 
     { 
@@ -52,24 +55,28 @@ public class Movement : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            nextMovement = MoveRight;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            nextMovement = MoveLeft;
-        }
-        else if (Input.GetKey(KeyCode.W))
-        {
-            nextMovement = MoveUp;
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            nextMovement = MoveDown;
-        }
+        
     }
 
+    private void SetNextMovement(MovementDirection movement)
+    {
+        switch (movement)
+        {
+            case MovementDirection.Down:
+                nextMovement = MoveDown;
+                break;
+            case MovementDirection.Up:
+                nextMovement = MoveUp;
+                break;
+            case MovementDirection.Left:
+                nextMovement = MoveLeft;
+                break;
+            case MovementDirection.Right:
+            default:
+                nextMovement = MoveRight;
+                break;
+        }
+    }
     public void MoveRight()
     {
         Int2 newPlayerPos = player.Position;
@@ -107,6 +114,11 @@ public class Movement : MonoBehaviour
         {
             player.Position = new Int2(player.Position.X, player.Position.Y - 1);
         }
+    }
+
+    private void OnDestroy()
+    {
+        InputManager.PressingMovement -= SetNextMovement;
     }
 
 }
