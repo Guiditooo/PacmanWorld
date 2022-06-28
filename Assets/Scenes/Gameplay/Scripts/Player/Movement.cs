@@ -115,7 +115,6 @@ public class Movement : MonoBehaviour
             player.Position = new Int2(player.Position.X, player.Position.Y - 1);
         }
     }
-
     private void OnDestroy()
     {
         InputManager.PressingMovement -= SetNextMovement;

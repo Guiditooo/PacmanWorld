@@ -30,11 +30,6 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         playerMovement.SetBounds(TileMap.GetMapBounds());
     }
 
-    private void Update()
-    {
-        
-    }
-
     private void MovePlayer()
     {
         Vector3 targetPos = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * player.Position.Y);

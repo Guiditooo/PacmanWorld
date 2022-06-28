@@ -14,8 +14,6 @@ namespace PacManWorld
     {
         [SerializeField] private CanvasGroup pause;
         [SerializeField] private CanvasGroup gameOver;
-
-        
         public static void ShowPanel(CanvasGroup panel, FadeType fadeType)
         {
             switch (fadeType)
@@ -31,7 +29,6 @@ namespace PacManWorld
                     break;
             }
         }
-
         private static IEnumerator MakeVisible(CanvasGroup panel)
         {
             float t = 0;
