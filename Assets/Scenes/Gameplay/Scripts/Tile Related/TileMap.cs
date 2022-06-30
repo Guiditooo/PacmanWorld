@@ -16,7 +16,21 @@ namespace CustomTiles
         public static int Columns { get; private set; } = 15;
 
         private static List<Tile> tileList = new List<Tile>();
-        public static Int2 InitialCharacterPos { get; set; } = Int2.one;
+
+        [SerializeField] private Int2 initialCharacterPosBis = Int2.one;
+
+        private static Int2 initialCharacterPos = Int2.one;
+        public static Int2 InitialCharacterPos
+        {
+            get
+            {
+                return initialCharacterPos;
+            }
+            private set
+            {
+                initialCharacterPos = value;
+            }
+        }
         public static Int2 InitialStalkerPos { get; set; } = GetMapBounds()-2;
         public static Int2 GetMapBounds()
         {
@@ -25,8 +39,8 @@ namespace CustomTiles
 
         private void Awake()
         {
+            initialCharacterPos = initialCharacterPosBis;
             SetTileSize();
-
         }
 
         public void Create(int rowCount, int columnCount)
@@ -55,9 +69,9 @@ namespace CustomTiles
                         newGO.GetComponent<Floor>().Position = new Int2(x, y);
                         tileList.Add(newGO?.GetComponent<Floor>());
                     }
-                    if (x == 1 && y == 1)
+                    if (x == initialCharacterPos.X && y == initialCharacterPos.Y)
                     {
-                        InitialCharacterPos = new Int2(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
+                        initialCharacterPos = new Int2(Mathf.RoundToInt(pos.x), Mathf.RoundToInt(pos.y));
                     }
                 }
             }

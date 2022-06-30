@@ -5,7 +5,7 @@ using System;
 
 using GeneralFunctions;
 using CustomTiles;
-
+/*
 public class Stalker : MonoBehaviour
 {
     private Int2 InitialPos;
@@ -46,3 +46,4 @@ public class Stalker : MonoBehaviour
     }
 
 }
+*/

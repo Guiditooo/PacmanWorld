@@ -48,8 +48,6 @@ public class Movement : MonoBehaviour
                 lastMovement = movement;
             }
         }
-
-        
     }
 
     private void SetNextMovement(MovementDirection movement)

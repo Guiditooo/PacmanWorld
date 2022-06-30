@@ -14,6 +14,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     private Transform tileMapPos;
     private void Awake()
     {
+        characterMovement = new Movement[characterGroup.Length];
         tileMapPos = tileMap.transform;
         for (int i = 0; i < characterGroup.Length; i++)
         {
@@ -31,7 +32,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             if (character.tag == "Player")
             {
                 newGO = Instantiate(character.Prefab, TileMap.InitialCharacterPos.ToVector3(), Quaternion.identity);
-                character.SetInitialPos(TileMap.InitialCharacterPos);
+                character.transform.position = TileMap.InitialCharacterPos.ToVector3();
             }
             else if (character.tag == "RandomStalker")
             {
@@ -47,7 +48,6 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
                 newGO.name = character.name;
             }
         }
-        
     }
 
     private void MoveCharacter(Character charToMove)

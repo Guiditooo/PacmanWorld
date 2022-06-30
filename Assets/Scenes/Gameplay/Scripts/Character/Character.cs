@@ -45,14 +45,11 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         sprite = GetComponent<SpriteRenderer>();
-        position = InitialPos;
     }
 
     private void Start()
     {
         sprite.size = new Vector2(TileMap.GetTileSize(), TileMap.GetTileSize());
-        InitialPos = TileMap.InitialCharacterPos;
+        position = InitialPos;
     }
-
-
 }
