@@ -15,7 +15,7 @@ public class PauseSystem : MonoBehaviour
     public static bool Paused { get; private set; } = false;
     private void Awake()
     {
-        InputManager.PressingPause += PauseControl;
+        InputManager.OnPausePress += PauseControl;
     }
     public static void PauseControl()
     {
@@ -26,6 +26,6 @@ public class PauseSystem : MonoBehaviour
     }
     private void OnDestroy()
     {
-        InputManager.PressingPause -= PauseControl;
+        InputManager.OnPausePress -= PauseControl;
     }
 }

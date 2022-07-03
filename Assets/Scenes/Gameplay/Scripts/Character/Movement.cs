@@ -24,7 +24,7 @@ public class Movement : MonoBehaviour
         IsMoving = false;
         if (character.tag == "Player")
         {
-            InputManager.PressingMovement += SetNextMovement;
+            InputManager.OnMovementPress += SetNextMovement;
         }
     }
     private void LateUpdate()
@@ -113,7 +113,7 @@ public class Movement : MonoBehaviour
     private void OnDestroy()
     {
         if (character.tag == "Player")
-            InputManager.PressingMovement -= SetNextMovement;
+            InputManager.OnMovementPress -= SetNextMovement;
     }
 
 }
