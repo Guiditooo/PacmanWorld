@@ -10,12 +10,17 @@ public class PlayerControl : MonoBehaviour
     private void Awake()
     {
         movement = GetComponent<Movement>();
-
-        InputManager.OnMovementPress += (movementType) =>
-        {
-            movement.SetNextMovement(movementType);
-        };
-
-
+        InputManager.OnMovementPress += GetMovementTypeByInput;
     }
+
+    private void OnDestroy()
+    {
+        InputManager.OnMovementPress -= GetMovementTypeByInput;
+    }
+
+    private void GetMovementTypeByInput(MovementDirection movementDirection)
+    {
+        movement.SetNextMovement(movementDirection);
+    }
+
 }
