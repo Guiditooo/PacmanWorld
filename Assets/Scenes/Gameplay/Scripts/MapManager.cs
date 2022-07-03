@@ -24,7 +24,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
 
     private void Start()
     {
-        tileMap.Create(15, 15);
+        tileMap.Create();
         foreach (Character character in prefabCharacterGroup)
         {
             Character newChar = null;
@@ -38,7 +38,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             {
                 Int2 enemyPos = enemyInitialPos[Random.Range(0, enemyInitialPos.Length)];
                 newChar = Instantiate(character, new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.Y), Quaternion.identity);
-                newChar.SetInitialPos(TileMap.InitialStalkerPos);
+                newChar.SetInitialPos(enemyPos);
             }
             else
             {
