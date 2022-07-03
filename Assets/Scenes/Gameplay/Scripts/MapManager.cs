@@ -60,7 +60,6 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
 
     private void MoveCharacter(Character charToMove)
     {
-        Debug.Log("Me estoy moviendo");
         Vector3 targetPos = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.Y);
         StartCoroutine(MovementLerper(charToMove.transform.position, targetPos, charToMove));
     }

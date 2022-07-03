@@ -71,7 +71,7 @@ public class Movement : MonoBehaviour
         newcharacterPos.X++;
         if (character.Position.X + 1 < CustomTiles.TileMap.GetMapBounds().X && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            Debug.Log("Me voy a mover a la derecha");
+            //Debug.Log("Me voy a mover a la derecha");
             character.Position = newcharacterPos;
         }
     }
@@ -81,7 +81,7 @@ public class Movement : MonoBehaviour
         newcharacterPos.X--;
         if (character.Position.X - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            Debug.Log("Me voy a mover a la izquierda");
+            //Debug.Log("Me voy a mover a la izquierda");
             character.Position = newcharacterPos;
         }
 
@@ -92,7 +92,7 @@ public class Movement : MonoBehaviour
         newcharacterPos.Y++;
         if (newcharacterPos.Y < CustomTiles.TileMap.GetMapBounds().Y && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            Debug.Log("Me voy a mover para arriba");
+            //Debug.Log("Me voy a mover para arriba");
             character.Position = newcharacterPos;
         }
     }
@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour
         newcharacterPos.Y--;
         if (character.Position.Y - 1 >= 0 && CustomTiles.TileMap.CheckForValidTile(newcharacterPos))
         {
-            Debug.Log("Me voy a mover para abajo");
+            //Debug.Log("Me voy a mover para abajo");
             character.Position = newcharacterPos;
         }
     }
