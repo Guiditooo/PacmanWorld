@@ -32,7 +32,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             if (character.tag == "Player")
             {
                 newGO = Instantiate(character.Prefab, TileMap.InitialCharacterPos.ToVector3(), Quaternion.identity);
-                character.transform.position = TileMap.InitialCharacterPos.ToVector3();
+                character.SetInitialPos(TileMap.InitialCharacterPos);
             }
             else if (character.tag == "RandomStalker")
             {

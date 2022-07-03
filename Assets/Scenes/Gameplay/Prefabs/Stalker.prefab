@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InitialPos:
-    X: 1
-    Y: 1
+    X: 10
+    Y: 10
+  prefab: {fileID: 1363660821260459573}
 --- !u!114 &1234214835695543858
 MonoBehaviour:
   m_ObjectHideFlags: 0
