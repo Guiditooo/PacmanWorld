@@ -42,6 +42,7 @@ namespace GeneralFunctions
         public static Int2 operator-(Int2 a, Int2 b) => new Int2(a.X - b.X, a.Y - b.Y);
         public static Int2 operator-(Int2 a, int b) => new Int2(a.X - b, a.Y - b);
         public static Int2 operator*(Int2 a, int b) => new Int2(a.X * b, a.Y * b);
+        public static Vector3 operator*(Int2 a, float b) => new Vector3(a.X * b, a.Y * b);
         public static Int2 operator/(Int2 a, int b)
         {
             if (b == 0) return a;

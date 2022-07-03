@@ -498,8 +498,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileMap: {fileID: 1532909250}
   playerSpeed: 3
-  characterGroup:
+  playerInitialPos:
+    X: 1
+    Y: 1
+  enemyInitialPos:
+  - X: 13
+    Y: 13
+  prefabCharacterGroup:
   - {fileID: 4078379899010176620, guid: d8dc3e221a3e2b34e84fe945ccb4495b, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
 --- !u!1 &583123435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1506,9 +1513,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorPrefab: {fileID: 8727600049495786163, guid: 5c89025757dd0d14ca138796ea57f0dd, type: 3}
   wallPrefab: {fileID: 2980682975458750814, guid: d964a8fb117718644af5a014fad60dfc, type: 3}
-  initialCharacterPosBis:
-    X: 1
-    Y: 1
 --- !u!1 &1673625959
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,18 +8,21 @@ public class Character : MonoBehaviour
 {
     [SerializeField] private Int2 InitialPos = Int2.one;
     [SerializeField] private GameObject prefab;
+    [SerializeField] private CharacterType characterType;
     public GameObject Prefab 
     {
         get
         {
             return prefab;
         }
-        private set
+    }
+    public CharacterType CharType 
+    {
+        get
         {
-            prefab = value;
+            return characterType;
         }
     }
-    public CharacterType CharType { get; private set; }
     public void SetInitialPos(Int2 newInitialPos)
     {
         InitialPos = newInitialPos;
@@ -37,7 +40,7 @@ public class Character : MonoBehaviour
         set
         {
             position = value;
-            OnCharacterPosChange?.Invoke(this);
+            OnCharacterPosChange?.Invoke(this); //Deberia pasar su posicion, de modo que se pueda reubicar en la posicion global.
         }
     }
 

@@ -9,49 +9,58 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private CustomTiles.TileMap tileMap;
     [SerializeField] [Range(0.1f,4)]private float playerSpeed;
 
-    [SerializeField] private Character[] characterGroup;
-    private Movement[] characterMovement;
+    [SerializeField] private Int2 playerInitialPos;
+    [SerializeField] private Int2[] enemyInitialPos;
+
+    [SerializeField] private Character[] prefabCharacterGroup;
+    private List<Character> characterGroup;
     private Transform tileMapPos;
+
     private void Awake()
     {
-        characterMovement = new Movement[characterGroup.Length];
         tileMapPos = tileMap.transform;
-        for (int i = 0; i < characterGroup.Length; i++)
-        {
-            characterMovement[i] = characterGroup[i].gameObject.GetComponent<Movement>();
-            characterGroup[i].OnCharacterPosChange += MoveCharacter;
-        }
+        characterGroup = new List<Character>(prefabCharacterGroup.Length);
     }
 
     private void Start()
     {
         tileMap.Create(15, 15);
-        foreach (Character character in characterGroup)
+        foreach (Character character in prefabCharacterGroup)
         {
-            GameObject newGO = null;
+            Character newChar = null;
             if (character.tag == "Player")
             {
-                newGO = Instantiate(character.Prefab, TileMap.InitialCharacterPos.ToVector3(), Quaternion.identity);
-                character.SetInitialPos(TileMap.InitialCharacterPos);
+                newChar = Instantiate(character, new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * playerInitialPos.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * playerInitialPos.Y), Quaternion.identity);
+                newChar.SetInitialPos(playerInitialPos);
+                
             }
             else if (character.tag == "RandomStalker")
             {
-                newGO = Instantiate(character.Prefab, TileMap.InitialStalkerPos.ToVector3(), Quaternion.identity);
-                character.SetInitialPos(TileMap.InitialStalkerPos);
+                Int2 enemyPos = enemyInitialPos[Random.Range(0, enemyInitialPos.Length)];
+                newChar = Instantiate(character, new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.Y), Quaternion.identity);
+                newChar.SetInitialPos(TileMap.InitialStalkerPos);
             }
             else
             {
                 Debug.Log("Characters Creation Error");
             }
-            if (newGO != null)
+
+            characterGroup.Add(newChar);
+
+            if (newChar != null)
             {
-                newGO.name = character.name;
+                newChar.gameObject.name = character.name;
             }
+        }
+        for (int i = 0; i < characterGroup.Count; i++)
+        {
+            characterGroup[i].OnCharacterPosChange += MoveCharacter;
         }
     }
 
     private void MoveCharacter(Character charToMove)
     {
+        Debug.Log("Me estoy moviendo");
         Vector3 targetPos = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.Y);
         StartCoroutine(MovementLerper(charToMove.transform.position, targetPos, charToMove));
     }
@@ -72,7 +81,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
 
     private void OnDestroy()
     {
-        foreach (Character character in characterGroup)
+        foreach (Character character in prefabCharacterGroup)
         {
             character.OnCharacterPosChange -= MoveCharacter;
         }
