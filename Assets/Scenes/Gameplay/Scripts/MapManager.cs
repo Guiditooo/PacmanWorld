@@ -12,32 +12,33 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private Int2 playerInitialPos;
     [SerializeField] private Int2[] enemyInitialPos;
 
+
     [SerializeField] private Character[] prefabCharacterGroup;
     private List<Character> characterGroup;
-    private Transform tileMapPos;
+
 
     private void Awake()
     {
-        tileMapPos = tileMap.transform;
         characterGroup = new List<Character>(prefabCharacterGroup.Length);
     }
 
     private void Start()
     {
         tileMap.Create();
+
         foreach (Character character in prefabCharacterGroup)
         {
             Character newChar = null;
             if (character.tag == "Player")
             {
-                newChar = Instantiate(character, new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * playerInitialPos.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * playerInitialPos.Y), Quaternion.identity);
+                newChar = Instantiate(character, TileConversor.GridToWorld(playerInitialPos), Quaternion.identity);
                 newChar.SetInitialPos(playerInitialPos);
                 
             }
             else if (character.tag == "RandomStalker")
             {
                 Int2 enemyPos = enemyInitialPos[Random.Range(0, enemyInitialPos.Length)];
-                newChar = Instantiate(character, new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * enemyPos.Y), Quaternion.identity);
+                newChar = Instantiate(character, TileConversor.GridToWorld(enemyPos), Quaternion.identity);
                 newChar.SetInitialPos(enemyPos);
             }
             else
@@ -56,12 +57,14 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         {
             characterGroup[i].OnCharacterPosChange += MoveCharacter;
         }
+
+        
+
     }
 
     private void MoveCharacter(Character charToMove)
     {
-        Vector3 targetPos = new Vector3(TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.X, TileMap.GetTileSize() / 2 + TileMap.GetTileSize() * charToMove.Position.Y);
-        StartCoroutine(MovementLerper(charToMove.transform.position, targetPos, charToMove));
+        StartCoroutine(MovementLerper(charToMove.transform.position, TileConversor.GridToWorld(charToMove.Position), charToMove));
     }
     private IEnumerator MovementLerper(Vector3 actualPos, Vector3 targetPos, Character charToMove)
     {
@@ -77,6 +80,8 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         charToMove.GetComponent<Movement>().IsMoving = false;
         //player.transform.position = auxPosition;
     }
+
+    
 
     private void OnDestroy()
     {

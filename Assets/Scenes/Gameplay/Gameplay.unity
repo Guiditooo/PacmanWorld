@@ -1693,6 +1693,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorPrefab: {fileID: 8727600049495786163, guid: 5c89025757dd0d14ca138796ea57f0dd, type: 3}
   wallPrefab: {fileID: 2980682975458750814, guid: d964a8fb117718644af5a014fad60dfc, type: 3}
+  pointPrefab: {fileID: 0}
 --- !u!1 &1673625959
 GameObject:
   m_ObjectHideFlags: 0

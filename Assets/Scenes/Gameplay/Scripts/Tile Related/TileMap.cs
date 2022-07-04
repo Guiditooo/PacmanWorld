@@ -9,6 +9,7 @@ namespace CustomTiles
     {
         [SerializeField] private GameObject floorPrefab;
         [SerializeField] private GameObject wallPrefab;
+        [SerializeField] private GameObject pointPrefab;
 
         private static float tileSize = 1;
         public static float GetTileSize() => tileSize;
@@ -16,6 +17,7 @@ namespace CustomTiles
         public static int Columns { get; private set; } = 15;
 
         private static Tile[,] tileArray;
+        //public static Tile[,] GetTileMap() => tileArray;
         public static Int2 GetMapBounds()
         {
             return new Int2(Rows, Columns);
@@ -33,18 +35,17 @@ namespace CustomTiles
             {
                 for (int x = 0; x < Rows; x++)
                 {
-                    Vector3 pos = new Vector3(tileSize / 2 + tileSize * x, tileSize / 2 + tileSize * y);
                     GameObject newGO;
                     if (x == 0 || x == Rows - 1 || y == 0 || y == Columns-1)
                     {
-                        newGO = Instantiate(wallPrefab, pos, Quaternion.identity, transform);
+                        newGO = Instantiate(wallPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, transform);
                         newGO.name = "[ " + x + " - " + y + " ] - " + wallPrefab.name;
                         newGO.GetComponent<Wall>().Position = new Int2(x, y);
                         tileArray[x,y] = newGO.GetComponent<Wall>();
                     }
                     else
                     {
-                        newGO = Instantiate(floorPrefab, pos, Quaternion.identity, transform);
+                        newGO = Instantiate(floorPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, transform);
                         newGO.name = "[ " + x + " - " + y + " ] - " + floorPrefab.name;
                         newGO.GetComponent<Floor>().Position = new Int2(x, y);
                         tileArray[x,y] = newGO.GetComponent<Floor>();
@@ -52,6 +53,16 @@ namespace CustomTiles
                 }
             }
 
+        }
+        public void SetPoints()
+        {
+            for (int x = 0; x < Rows; x++)
+            {
+                for (int y = 0; y < Columns; y++)
+                {
+                    
+                }
+            }
         }
 
         private void SetTileSize()
@@ -64,6 +75,8 @@ namespace CustomTiles
             return tileArray[posToCheck.X,posToCheck.Y].GetTileType() == TileType.Floor;
 
         }
+
+        
 
     }
 }
