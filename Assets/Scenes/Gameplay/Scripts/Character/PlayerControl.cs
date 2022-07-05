@@ -11,16 +11,23 @@ public class PlayerControl : MonoBehaviour
     {
         movement = GetComponent<Movement>();
         InputManager.OnMovementPress += GetMovementTypeByInput;
+        MapManager.OnCollisionWithOtherCharacter += StopMoving;
     }
 
     private void OnDestroy()
     {
         InputManager.OnMovementPress -= GetMovementTypeByInput;
+        MapManager.OnCollisionWithOtherCharacter -= StopMoving;
     }
 
     private void GetMovementTypeByInput(MovementDirection movementDirection)
     {
         movement.SetNextMovement(movementDirection);
+    }
+
+    private void StopMoving()
+    {
+        movement.StopActualMovement();
     }
 
 }

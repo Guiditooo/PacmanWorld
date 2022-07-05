@@ -10,8 +10,9 @@ public class GameManager : MonoBehaviour
 
     public static Action<string> OnGameOver;
 
-    private int lives;
+    public static Action OnLifeLost;
 
+    private int lives;
     public static bool GameRunning { get; private set; }
 
     private int score;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
         GameRunning = true;
         PickUpAble.OnPickUp += AddPoints;
         PickUpAble.OnAllPickedUp += EndGame;
+        MapManager.OnCollisionWithOtherCharacter += SubstractLife;
     }
 
     private void Start()
@@ -48,8 +50,21 @@ public class GameManager : MonoBehaviour
         OnScoreChange?.Invoke(score);
     }
 
+    public void SubstractLife()
+    {
+        lives--;
+
+        Debug.Log("Ahora tengo " + lives + " vidas.");
+
+        OnLifeLost?.Invoke();
+
+        if (lives == 0) EndGame();
+    }
+
     private void OnDestroy()
     {
         PickUpAble.OnPickUp -= AddPoints;
+        PickUpAble.OnAllPickedUp -= EndGame;
+        MapManager.OnCollisionWithOtherCharacter -= SubstractLife;
     }
 }

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 using GeneralFunctions;
 using CustomTiles;
+
+
 public class MapManager : MonoBehaviour //Se supone que funca una vez que se selecciono el nivel.
 {
     [SerializeField] private CustomTiles.TileMap tileMap;
@@ -22,6 +25,8 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private Transform pointsFolder;
     [SerializeField] private Int2[] powerUpArray;
     private static PickUpAble[,] pickUpAbleArray;
+
+    public static Action OnCollisionWithOtherCharacter;
 
     private void Awake()
     {
@@ -44,7 +49,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             }
             else if (character.tag == "RandomStalker")
             {
-                Int2 enemyPos = enemyInitialPos[Random.Range(0, enemyInitialPos.Length)];
+                Int2 enemyPos = enemyInitialPos[UnityEngine.Random.Range(0, enemyInitialPos.Length)];
                 newChar = Instantiate(character, TileConversor.GridToWorld(enemyPos), Quaternion.identity);
                 newChar.SetInitialPos(enemyPos);
             }
@@ -119,11 +124,41 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
         charToMove.GetComponent<Movement>().IsMoving = false;
 
         //Esto es alta negrada pero es la forma de hacer algo cuando termina de moverse y no cuando recien empieza :P
-        
-        if (charToMove.tag == "Player" && pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y] != null)
+
+        Character player = null;
+
+        foreach (Character item in characterGroup)
         {
-            pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y].PickUp();
+            if (item.gameObject.tag == "Player") player = item;
         }
+
+
+        if (charToMove.tag == "Player")
+        {
+            if (pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y] != null)
+            {
+                pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y].PickUp();
+            }
+            foreach (Character item in characterGroup)
+            {
+                if (item.gameObject.tag == "Player") continue;
+                if (item.Position == charToMove.Position)
+                {
+                    OnCollisionWithOtherCharacter?.Invoke();
+                    charToMove.Position = playerInitialPos;
+                }
+            }
+
+        }
+        else
+        {
+            if (player.Position == charToMove.Position)
+            {
+                OnCollisionWithOtherCharacter?.Invoke();
+                player.Position = playerInitialPos;
+            }
+        }
+
     }
 
     

@@ -18,7 +18,7 @@ public class PickUpAble : MonoBehaviour
     private void Start()
     {
         count++;
-        Debug.Log(this.gameObject.name + " Count: " + count);
+        //Debug.Log(this.gameObject.name + " Count: " + count);
     }
 
     public virtual void PickUp()
@@ -29,7 +29,7 @@ public class PickUpAble : MonoBehaviour
     private void OnDestroy()
     {
         count--;
-        Debug.Log(this.gameObject.name + " Count: " + count);
+        //Debug.Log(this.gameObject.name + " Count: " + count);
         
         if(count == 0)
         {

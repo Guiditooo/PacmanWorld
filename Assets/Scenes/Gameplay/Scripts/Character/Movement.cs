@@ -107,5 +107,11 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void StopActualMovement()
+    {
+        movement = null;
+        nextMovement = null;
+        lastMovement = null;
+    }
 
 }

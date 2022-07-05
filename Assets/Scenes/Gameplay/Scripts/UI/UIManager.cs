@@ -17,7 +17,7 @@ namespace PacManWorld
     {
 
         [SerializeField] private TMP_Text score;
-        [SerializeField] private Image[] image;
+        [SerializeField] private List<Image> livesList;
 
         [SerializeField] private CanvasGroup pause;
         [SerializeField] private CanvasGroup gameOver;
@@ -29,12 +29,14 @@ namespace PacManWorld
 
         private void Awake()
         {
+            GameManager.OnLifeLost += ChangeLifes;
             GameManager.OnGameOver += ShowGameOverPanel;
             GameManager.OnScoreChange += ChangeScoreText;
             PauseSystem.OnPauseStateChange += ShowPausePanel;
         }
         private void OnDestroy()
         {
+            GameManager.OnLifeLost -= ChangeLifes;
             GameManager.OnGameOver -= ShowGameOverPanel;
             GameManager.OnScoreChange -= ChangeScoreText;
             PauseSystem.OnPauseStateChange -= ShowPausePanel;
@@ -159,6 +161,13 @@ namespace PacManWorld
 
             score.text = newText;
 
+        }
+
+        private void ChangeLifes()
+        {
+            GameObject imageToDelete = livesList[livesList.Count - 1].gameObject;
+            livesList.RemoveAt(livesList.Count - 1);
+            Destroy(imageToDelete);
         }
 
     }
