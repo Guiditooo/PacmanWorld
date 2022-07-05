@@ -8,6 +8,7 @@ public class PickUpAble : MonoBehaviour
     private static int count;
 
     public static Action<int> OnPickUp;
+    public static Action OnAllPickedUp;
 
     [SerializeField] private int pointsToGive;
     private void Awake()
@@ -29,6 +30,12 @@ public class PickUpAble : MonoBehaviour
     {
         count--;
         Debug.Log(this.gameObject.name + " Count: " + count);
+        
+        if(count == 0)
+        {
+            OnAllPickedUp?.Invoke();
+        }
     }
+
 
 }

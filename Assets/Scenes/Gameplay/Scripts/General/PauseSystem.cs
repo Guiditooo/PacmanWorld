@@ -20,11 +20,14 @@ public class PauseSystem : MonoBehaviour
 
     public static void PauseControl()
     {
-        Paused = !Paused;
-        Time.timeScale = Paused ? 0 : 1;
-        PauseStates actualState = Paused ? PauseStates.Paused : PauseStates.Resumed;
-        Debug.Log("Envio estado de pausa: "+Paused);
-        OnPauseStateChange?.Invoke(actualState);
+        if (GameManager.GameRunning)
+        {
+            Paused = !Paused;
+            Time.timeScale = Paused ? 0 : 1;
+            PauseStates actualState = Paused ? PauseStates.Paused : PauseStates.Resumed;
+            Debug.Log("Envio estado de pausa: " + Paused);
+            OnPauseStateChange?.Invoke(actualState);
+        }
     }
     private void OnDestroy()
     {

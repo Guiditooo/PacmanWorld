@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-
 public class InputManager : MonoBehaviour
 {
-    public static Action<MovementDirection> OnMovementPress; 
+    public static Action<MovementDirection> OnMovementPress;
     public static Action OnPausePress;
 
     private void Update()
@@ -28,6 +25,6 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    
+
 
 }

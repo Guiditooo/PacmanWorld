@@ -78,7 +78,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             otherGO.name = "[ " + pos.X + " - " + pos.Y + " ] - " + powerUpPrefab.name;
             pickUpAbleArray[pos.X, pos.Y] = otherGO.GetComponent<PickUpAble>();
         }
-
+        
         for (int y = 0; y < TileMap.Columns; y++)
         {
             for (int x = 0; x < TileMap.Rows; x++)
@@ -104,10 +104,6 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     private void MoveCharacter(Character charToMove)
     {
         StartCoroutine(MovementLerper(charToMove.transform.position, TileConversor.GridToWorld(charToMove.Position), charToMove));
-        if (charToMove.tag == "Player" && pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y] != null)
-        {
-            pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y].PickUp();
-        }
     }
     private IEnumerator MovementLerper(Vector3 actualPos, Vector3 targetPos, Character charToMove)
     {
@@ -121,7 +117,13 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             yield return null;
         }
         charToMove.GetComponent<Movement>().IsMoving = false;
-        //player.transform.position = auxPosition;
+
+        //Esto es alta negrada pero es la forma de hacer algo cuando termina de moverse y no cuando recien empieza :P
+        
+        if (charToMove.tag == "Player" && pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y] != null)
+        {
+            pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y].PickUp();
+        }
     }
 
     

@@ -16,24 +16,26 @@ namespace PacManWorld
     public class UIManager : MonoBehaviour
     {
 
-
-
         [SerializeField] private TMP_Text score;
         [SerializeField] private Image[] image;
 
         [SerializeField] private CanvasGroup pause;
         [SerializeField] private CanvasGroup gameOver;
+        [SerializeField] private TMP_Text gameOverText;
+        [SerializeField] private TMP_Text gameOverScoreText;
 
         [SerializeField] private float fadeSpeed;
         private bool runningVisibilityCorroutine;
 
         private void Awake()
         {
+            GameManager.OnGameOver += ShowGameOverPanel;
             GameManager.OnScoreChange += ChangeScoreText;
             PauseSystem.OnPauseStateChange += ShowPausePanel;
         }
         private void OnDestroy()
         {
+            GameManager.OnGameOver -= ShowGameOverPanel;
             GameManager.OnScoreChange -= ChangeScoreText;
             PauseSystem.OnPauseStateChange -= ShowPausePanel;
         }
@@ -62,6 +64,13 @@ namespace PacManWorld
             }
         }
 
+        private void ShowGameOverPanel(string text)
+        {
+            gameOverText.text = text;
+            gameOverScoreText.text = score.text + " Points";
+            ShowPanel(gameOver, FadeType.Delayed);
+        }
+
         public static void BackToMainMenu()
         {
             SceneManager.LoadScene("Menu");
@@ -74,6 +83,7 @@ namespace PacManWorld
 
         public void ShowPanel(CanvasGroup panel, FadeType fadeType)
         {
+            panel.GetComponent<Image>().color = UnityEngine.Random.ColorHSV (0, 1, 0.8f, 1, 0.85f, 1, 0.7f, 0.85f);
             switch (fadeType)
             {
                 case FadeType.Delayed:
