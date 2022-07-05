@@ -260,6 +260,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4365fb77820c342830ec46906568e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &462970641
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 462970642}
+  m_Layer: 0
+  m_Name: Points
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &462970642
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 462970641}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532909249}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &491755970
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -499,14 +530,37 @@ MonoBehaviour:
   tileMap: {fileID: 1532909250}
   playerSpeed: 3
   playerInitialPos:
-    X: 1
+    X: 7
     Y: 1
   enemyInitialPos:
-  - X: 13
-    Y: 13
+  - X: 7
+    Y: 7
   prefabCharacterGroup:
   - {fileID: 4078379899010176620, guid: d8dc3e221a3e2b34e84fe945ccb4495b, type: 3}
   - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  - {fileID: -365121251426424274, guid: d3278224627db91429ca31b0e8c2db72, type: 3}
+  pointPrefab: {fileID: 5693328119881353028, guid: f6008831541d1504b81acc314c8bf751, type: 3}
+  powerUpPrefab: {fileID: 4494849577294761941, guid: 05c0e6328bd5e784d8a875a55e8d1ae8, type: 3}
+  pointsFolder: {fileID: 462970642}
+  powerUpArray:
+  - X: 1
+    Y: 1
+  - X: 13
+    Y: 13
+  - X: 1
+    Y: 13
+  - X: 13
+    Y: 1
+  - X: 1
+    Y: 7
+  - X: 13
+    Y: 7
+  - X: 7
+    Y: 13
 --- !u!1 &583123435
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,7 +1729,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1822108118}
+  - {fileID: 462970642}
   m_Father: {fileID: 1795632008}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1693,7 +1749,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorPrefab: {fileID: 8727600049495786163, guid: 5c89025757dd0d14ca138796ea57f0dd, type: 3}
   wallPrefab: {fileID: 2980682975458750814, guid: d964a8fb117718644af5a014fad60dfc, type: 3}
-  pointPrefab: {fileID: 0}
+  tilesFolder: {fileID: 1822108118}
 --- !u!1 &1673625959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2063,6 +2119,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798169117}
   m_CullTransparentMesh: 1
+--- !u!1 &1822108117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822108118}
+  m_Layer: 0
+  m_Name: Tiles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1822108118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822108117}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1532909249}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &1873432293 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 240762963056826361, guid: a168aedfe4c2b1843b367cdefa52cdfc, type: 3}

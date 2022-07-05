@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 using TMPro;
 
 namespace PacManWorld
@@ -15,6 +16,8 @@ namespace PacManWorld
     public class UIManager : MonoBehaviour
     {
 
+
+
         [SerializeField] private TMP_Text score;
         [SerializeField] private Image[] image;
 
@@ -26,17 +29,18 @@ namespace PacManWorld
 
         private void Awake()
         {
+            GameManager.OnScoreChange += ChangeScoreText;
             PauseSystem.OnPauseStateChange += ShowPausePanel;
         }
         private void OnDestroy()
         {
+            GameManager.OnScoreChange -= ChangeScoreText;
             PauseSystem.OnPauseStateChange -= ShowPausePanel;
         }
         private void Start()
         {
             runningVisibilityCorroutine = false;   
         }
-
         private void ShowPausePanel(PauseStates pauseState)
         {
             
@@ -83,6 +87,7 @@ namespace PacManWorld
                     break;
             }
         }
+
         private IEnumerator MakeVisible(CanvasGroup panel)
         {
             float t = 0;
@@ -113,6 +118,7 @@ namespace PacManWorld
                     break;
             }
         }
+
         private IEnumerator MakeInvisible(CanvasGroup panel)
         {
             float t = 1;
@@ -126,6 +132,23 @@ namespace PacManWorld
             runningVisibilityCorroutine = false;
             panel.blocksRaycasts = false;
             panel.interactable = false;
+        }
+
+        private void ChangeScoreText(int newScore)
+        {
+            string newText = "";
+            if(newScore <1000)
+            {
+                newText += "0";
+            }
+            if(newScore <100)
+            {
+                newText += "0";
+            }
+            newText += newScore.ToString();
+
+            score.text = newText;
+
         }
 
     }

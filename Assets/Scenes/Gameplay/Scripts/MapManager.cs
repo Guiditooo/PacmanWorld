@@ -16,6 +16,12 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private Character[] prefabCharacterGroup;
     private List<Character> characterGroup;
 
+    [SerializeField] private GameObject pointPrefab;
+    [SerializeField] private GameObject powerUpPrefab;
+
+    [SerializeField] private Transform pointsFolder;
+    [SerializeField] private Int2[] powerUpArray;
+    private static PickUpAble[,] pickUpAbleArray;
 
     private void Awake()
     {
@@ -24,12 +30,13 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
 
     private void Start()
     {
-        tileMap.Create();
+        tileMap.CreateTileMap();
+        SetUpPickUpAbles();
 
         foreach (Character character in prefabCharacterGroup)
         {
             Character newChar = null;
-            if (character.tag == "Player")
+            if (character.tag == "Player") //Reemplazar por algun patron de dienio.
             {
                 newChar = Instantiate(character, TileConversor.GridToWorld(playerInitialPos), Quaternion.identity);
                 newChar.SetInitialPos(playerInitialPos);
@@ -58,13 +65,49 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             characterGroup[i].OnCharacterPosChange += MoveCharacter;
         }
 
-        
+    }
+    private void SetUpPickUpAbles()
+    {
+
+        pickUpAbleArray = new PickUpAble[TileMap.Rows, TileMap.Columns];
+
+        foreach (Int2 pos in powerUpArray)
+        {
+            GameObject otherGO;
+            otherGO = Instantiate(powerUpPrefab, TileConversor.GridToWorld(pos.X, pos.Y), Quaternion.identity, pointsFolder);
+            otherGO.name = "[ " + pos.X + " - " + pos.Y + " ] - " + powerUpPrefab.name;
+            pickUpAbleArray[pos.X, pos.Y] = otherGO.GetComponent<PickUpAble>();
+        }
+
+        for (int y = 0; y < TileMap.Columns; y++)
+        {
+            for (int x = 0; x < TileMap.Rows; x++)
+            {
+                if (playerInitialPos.X == x && playerInitialPos.Y == y)
+                {
+                    continue;
+                }
+                if (TileMap.GetTileAtGridPos(x,y).Equals(TileType.Floor) && pickUpAbleArray[x, y] == null)
+                {
+                    GameObject otherGO;
+                    otherGO = Instantiate(pointPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, pointsFolder);
+                    otherGO.name = "[ " + x + " - " + y + " ] - " + pointPrefab.name;
+                    pickUpAbleArray[x, y] = otherGO.GetComponent<PickUpAble>();
+                }
+
+            }
+        }
 
     }
+
 
     private void MoveCharacter(Character charToMove)
     {
         StartCoroutine(MovementLerper(charToMove.transform.position, TileConversor.GridToWorld(charToMove.Position), charToMove));
+        if (charToMove.tag == "Player" && pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y] != null)
+        {
+            pickUpAbleArray[charToMove.Position.X, charToMove.Position.Y].PickUp();
+        }
     }
     private IEnumerator MovementLerper(Vector3 actualPos, Vector3 targetPos, Character charToMove)
     {

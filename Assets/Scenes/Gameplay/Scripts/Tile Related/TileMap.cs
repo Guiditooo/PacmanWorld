@@ -9,7 +9,8 @@ namespace CustomTiles
     {
         [SerializeField] private GameObject floorPrefab;
         [SerializeField] private GameObject wallPrefab;
-        [SerializeField] private GameObject pointPrefab;
+
+        [SerializeField] private Transform tilesFolder;
 
         private static float tileSize = 1;
         public static float GetTileSize() => tileSize;
@@ -17,7 +18,14 @@ namespace CustomTiles
         public static int Columns { get; private set; } = 15;
 
         private static Tile[,] tileArray;
-        //public static Tile[,] GetTileMap() => tileArray;
+        public static TileType GetTileAtGridPos(Int2 tile)
+        {
+            return tileArray[tile.X, tile.Y].GetTileType();
+        }
+        public static TileType GetTileAtGridPos(int x, int y)
+        {
+            return tileArray[x, y].GetTileType();
+        }
         public static Int2 GetMapBounds()
         {
             return new Int2(Rows, Columns);
@@ -27,7 +35,7 @@ namespace CustomTiles
             SetTileSize();
         }
 
-        public void Create()
+        public void CreateTileMap()
         {
             tileArray = new Tile[TileMap.Rows,TileMap.Columns];
 
@@ -38,32 +46,25 @@ namespace CustomTiles
                     GameObject newGO;
                     if (x == 0 || x == Rows - 1 || y == 0 || y == Columns-1)
                     {
-                        newGO = Instantiate(wallPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, transform);
+                        newGO = Instantiate(wallPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, tilesFolder);
                         newGO.name = "[ " + x + " - " + y + " ] - " + wallPrefab.name;
                         newGO.GetComponent<Wall>().Position = new Int2(x, y);
                         tileArray[x,y] = newGO.GetComponent<Wall>();
                     }
                     else
                     {
-                        newGO = Instantiate(floorPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, transform);
+                        newGO = Instantiate(floorPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, tilesFolder);
                         newGO.name = "[ " + x + " - " + y + " ] - " + floorPrefab.name;
                         newGO.GetComponent<Floor>().Position = new Int2(x, y);
                         tileArray[x,y] = newGO.GetComponent<Floor>();
                     }
+
                 }
+
             }
 
         }
-        public void SetPoints()
-        {
-            for (int x = 0; x < Rows; x++)
-            {
-                for (int y = 0; y < Columns; y++)
-                {
-                    
-                }
-            }
-        }
+
 
         private void SetTileSize()
         {
