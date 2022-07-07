@@ -15,6 +15,8 @@ public class Movement : MonoBehaviour
 
     private Character character;
 
+    public System.Action<MovementDirection> OnMove;
+
     private void Awake() 
     {
         character = GetComponent<Character>();
@@ -73,6 +75,11 @@ public class Movement : MonoBehaviour
         {
             //Debug.Log("Me voy a mover a la derecha");
             character.Position = newcharacterPos;
+            OnMove?.Invoke(MovementDirection.Right);
+        }
+        else
+        {
+            OnMove?.Invoke(MovementDirection.None);
         }
     }
     private void MoveLeft()
@@ -83,8 +90,12 @@ public class Movement : MonoBehaviour
         {
             //Debug.Log("Me voy a mover a la izquierda");
             character.Position = newcharacterPos;
+            OnMove?.Invoke(MovementDirection.Left);
         }
-
+        else
+        {
+            OnMove?.Invoke(MovementDirection.None);
+        }
     }
     private void MoveUp()
     {
@@ -94,6 +105,11 @@ public class Movement : MonoBehaviour
         {
             //Debug.Log("Me voy a mover para arriba");
             character.Position = newcharacterPos;
+            OnMove?.Invoke(MovementDirection.Up);
+        }
+        else
+        {
+            OnMove?.Invoke(MovementDirection.None);
         }
     }
     private void MoveDown()
@@ -104,6 +120,11 @@ public class Movement : MonoBehaviour
         {
             //Debug.Log("Me voy a mover para abajo");
             character.Position = newcharacterPos;
+            OnMove?.Invoke(MovementDirection.Down);
+        }
+        else
+        {
+            OnMove?.Invoke(MovementDirection.None);
         }
     }
 
@@ -112,6 +133,7 @@ public class Movement : MonoBehaviour
         movement = null;
         nextMovement = null;
         lastMovement = null;
+        OnMove?.Invoke(MovementDirection.None);
     }
 
 }

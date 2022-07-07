@@ -1,11 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
+using UnityEngine.UI;
 using UnityEngine;
 using System;
 
 using GeneralFunctions;
 using CustomTiles;
-
 
 public class MapManager : MonoBehaviour //Se supone que funca una vez que se selecciono el nivel.
 {
@@ -22,6 +22,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
     [SerializeField] private GameObject pointPrefab;
     [SerializeField] private GameObject powerUpPrefab;
 
+    [SerializeField] private Transform charactersFolder;
     [SerializeField] private Transform pointsFolder;
     [SerializeField] private Int2[] powerUpArray;
     private static PickUpAble[,] pickUpAbleArray;
@@ -43,14 +44,14 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             Character newChar = null;
             if (character.tag == "Player") //Reemplazar por algun patron de dienio.
             {
-                newChar = Instantiate(character, TileConversor.GridToWorld(playerInitialPos), Quaternion.identity);
+                newChar = Instantiate(character, TileConversor.GridToWorld(playerInitialPos), Quaternion.identity, charactersFolder);
                 newChar.SetInitialPos(playerInitialPos);
                 
             }
             else if (character.tag == "RandomStalker")
             {
                 Int2 enemyPos = enemyInitialPos[UnityEngine.Random.Range(0, enemyInitialPos.Length)];
-                newChar = Instantiate(character, TileConversor.GridToWorld(enemyPos), Quaternion.identity);
+                newChar = Instantiate(character, TileConversor.GridToWorld(enemyPos), Quaternion.identity, charactersFolder);
                 newChar.SetInitialPos(enemyPos);
             }
             else
@@ -81,6 +82,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
             GameObject otherGO;
             otherGO = Instantiate(powerUpPrefab, TileConversor.GridToWorld(pos.X, pos.Y), Quaternion.identity, pointsFolder);
             otherGO.name = "[ " + pos.X + " - " + pos.Y + " ] - " + powerUpPrefab.name;
+            otherGO.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0, 1, 0.7f, 1, 0.85f, 1, 1, 1);
             pickUpAbleArray[pos.X, pos.Y] = otherGO.GetComponent<PickUpAble>();
         }
         
@@ -97,6 +99,7 @@ public class MapManager : MonoBehaviour //Se supone que funca una vez que se sel
                     GameObject otherGO;
                     otherGO = Instantiate(pointPrefab, TileConversor.GridToWorld(x, y), Quaternion.identity, pointsFolder);
                     otherGO.name = "[ " + x + " - " + y + " ] - " + pointPrefab.name;
+                    otherGO.GetComponent<SpriteRenderer>().color = UnityEngine.Random.ColorHSV(0, 1, 0.7f, 1, 0.85f, 1, 1, 1);
                     pickUpAbleArray[x, y] = otherGO.GetComponent<PickUpAble>();
                 }
 

@@ -3,5 +3,6 @@ public enum MovementDirection
     Down,
     Up,
     Left,
-    Right
+    Right,
+    None
 }

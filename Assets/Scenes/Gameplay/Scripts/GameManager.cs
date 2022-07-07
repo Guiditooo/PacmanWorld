@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
 
     public static Action OnLifeLost;
 
+    [SerializeField] private DeathAnimControl deathAnimControl;
+    [SerializeField] private GameObject gameplayContent;
+
     private int lives;
     public static bool GameRunning { get; private set; }
 
@@ -22,6 +25,7 @@ public class GameManager : MonoBehaviour
         PickUpAble.OnPickUp += AddPoints;
         PickUpAble.OnAllPickedUp += EndGame;
         MapManager.OnCollisionWithOtherCharacter += SubstractLife;
+        deathAnimControl.OnDeathAnimationEnd += ShowFinalMessage;
     }
 
     private void Start()
@@ -39,9 +43,24 @@ public class GameManager : MonoBehaviour
             }
             GameRunning = false;
             Time.timeScale = 0;
-            string endMsg = lives > 0 ? "Win" : "Lose";
-            OnGameOver?.Invoke("You " + endMsg);
+
+            gameplayContent.SetActive(false);
+
+            if (lives == 0)
+            {
+                deathAnimControl.StartAnimation();
+            }
+            else
+            {
+                ShowFinalMessage();
+            }
         }
+    }
+
+    private void ShowFinalMessage()
+    {
+        string endMsg = lives > 0 ? "Win" : "Lose";
+        OnGameOver?.Invoke("You " + endMsg);
     }
 
     private void AddPoints(int pointsToAdd)
@@ -66,5 +85,6 @@ public class GameManager : MonoBehaviour
         PickUpAble.OnPickUp -= AddPoints;
         PickUpAble.OnAllPickedUp -= EndGame;
         MapManager.OnCollisionWithOtherCharacter -= SubstractLife;
+        deathAnimControl.OnDeathAnimationEnd -= ShowFinalMessage;
     }
 }
